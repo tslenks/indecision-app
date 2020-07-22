@@ -6,7 +6,17 @@ var appTitle = document.getElementById('app-title');
 // JSX template
 var app = {
     title: 'Indecision app',
-    subtitle: 'Make it easy to organize tasks'
+    subtitle: 'Make it easy to organize tasks',
+    options: ['one item', 'two item']
+};
+var renderList = function renderList(list) {
+    return list.map(function (item) {
+        return React.createElement(
+            'li',
+            null,
+            item
+        );
+    });
 };
 var template = React.createElement(
     'div',
@@ -16,26 +26,42 @@ var template = React.createElement(
         null,
         app.title.toUpperCase()
     ),
-    React.createElement(
+    app.subtitle && React.createElement(
         'p',
         null,
         app.subtitle
     ),
-    React.createElement(
-        'ol',
+    app.options && app.options.length > 0 ? React.createElement(
+        'div',
         null,
+        'Here are your options ',
         React.createElement(
-            'li',
+            'ol',
             null,
-            'Taks 1 To do'
-        )
+            renderList(app.options)
+        ),
+        ' '
+    ) : React.createElement(
+        'p',
+        null,
+        'There is no options'
     )
 );
 
 var user = {
     name: 'Andry Marcel',
-    age: 34,
-    Location: "Madagascar"
+    age: 25,
+    location: "Madagascar"
+};
+var getLocation = function getLocation(location) {
+    if (location) {
+        return React.createElement(
+            'p',
+            null,
+            'Location: ',
+            location.toUpperCase()
+        );
+    }
 };
 var templateTwo = React.createElement(
     'div',
@@ -45,18 +71,13 @@ var templateTwo = React.createElement(
         null,
         user.name
     ),
-    React.createElement(
+    user.age > 26 && React.createElement(
         'p',
         null,
         'Age : ',
         user.age
     ),
-    React.createElement(
-        'p',
-        null,
-        'Location : ',
-        user.Location.toUpperCase()
-    )
+    getLocation(user.location)
 );
 
 ReactDOM.render(template, appTitle);
