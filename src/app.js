@@ -1,40 +1,59 @@
 const appRoot = document.getElementById('app')
-const appTitle = document.getElementById('app-title')
-
 // JSX template
 const app = {
     title: 'Indecision app',
     subtitle: 'Make it easy to organize tasks',
-    options:['one item', 'two item']
+    options:[]
 }
-const renderList = (list) => list.map(item => <li>{item}</li>);
-const template = (
-    <div>
-        <h1>{app.title.toUpperCase()}</h1>
-        {app.subtitle && <p>{app.subtitle}</p>}
-        {app.options && app.options.length > 0 
-            ? <div>Here are your options <ol>{renderList(app.options)}</ol> </div> 
-            : <p>There is no options</p>}        
-    </div>
-);
+const renderList = (list) => list
+    .filter(item => item && item.length > 0)
+    .map((item, index) => <li key={index}>{item}</li>);
 
-const user = {
-    name:'Andry Marcel',
-    age: 25,
-    location: "Madagascar"
-};
-const getLocation = (location) => {
-    if(location) {
-        return <p>Location: {location.toUpperCase()}</p>;
+const onSubmitForm = (e) => {
+    // normally a submit form will refresh the page and add an url parameter if the method is not a POST ...?option = value
+    e.preventDefault()
+    
+    // 1/ access the option textfiekd, e.target here is the element that triggered this method
+    // 2/ e.target has elements property that has it child contents 
+    // 3/ the name of the element can be reached only by getting its name (here :: option)
+    const option = e.target.elements.option.value;
+
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = '';
+        renderAppRoot();
     }
 }
-const templateTwo = (
-    <div>
-        <h1>{user.name}</h1>
-        {user.age > 26 && <p>Age : {user.age}</p> }
-        {getLocation(user.location)}
-    </div>
-);
 
-ReactDOM.render(template, appTitle);
-ReactDOM.render(templateTwo, appRoot);
+const removeAll = () => {
+    app.options = []
+    renderAppRoot();
+}
+
+const onMakeDecision = () => {
+    const random = Math.floor(Math.random() * app.options.length);
+    const option = app.options[random];
+    alert(option);
+}
+
+const renderAppRoot = () => {
+    const template = (
+        <div>
+            <h1>{app.title.toUpperCase()}</h1>
+            {app.subtitle && <p>{app.subtitle}</p>}
+            {app.options.length > 0 ? <p>Here are your options</p> : <p>There are no options, please add one or more</p>}
+            <p>{app.options.length}</p>
+            <button disabled={app.options.length === 0} onClick={onMakeDecision}>What should I do</button>
+            <button onClick={removeAll}>Remove All</button><br/>
+            <ol>{renderList(app.options)}</ol>
+            <form onSubmit={onSubmitForm}>
+                <input type="text" name="option" />
+                <button>Add option</button>
+            </form>
+        </div>
+    );
+    
+    ReactDOM.render(template, appRoot);
+}
+
+renderAppRoot();
