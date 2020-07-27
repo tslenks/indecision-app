@@ -1,7 +1,7 @@
 'use strict';
 
 var appRoot = document.getElementById('app');
-// JSX template
+
 var app = {
     title: 'Indecision app',
     subtitle: 'Make it easy to organize tasks',
@@ -104,5 +104,5 @@ var renderAppRoot = function renderAppRoot() {
 
     ReactDOM.render(template, appRoot);
 };
-
+// JSX template
 renderAppRoot();
