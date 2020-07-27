@@ -1,5 +1,5 @@
 const appRoot = document.getElementById('app')
-// JSX template
+
 const app = {
     title: 'Indecision app',
     subtitle: 'Make it easy to organize tasks',
@@ -55,5 +55,5 @@ const renderAppRoot = () => {
     
     ReactDOM.render(template, appRoot);
 }
-
+// JSX template
 renderAppRoot();
