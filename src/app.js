@@ -1,59 +1,71 @@
-const appRoot = document.getElementById('app')
-
-const app = {
-    title: 'Indecision app',
-    subtitle: 'Make it easy to organize tasks',
-    options:[]
-}
-const renderList = (list) => list
-    .filter(item => item && item.length > 0)
-    .map((item, index) => <li key={index}>{item}</li>);
-
-const onSubmitForm = (e) => {
-    // normally a submit form will refresh the page and add an url parameter if the method is not a POST ...?option = value
-    e.preventDefault()
-    
-    // 1/ access the option textfiekd, e.target here is the element that triggered this method
-    // 2/ e.target has elements property that has it child contents 
-    // 3/ the name of the element can be reached only by getting its name (here :: option)
-    const option = e.target.elements.option.value;
-
-    if (option) {
-        app.options.push(option);
-        e.target.elements.option.value = '';
-        renderAppRoot();
+class IndecisionApp extends React.Component {
+    render() {
+        return  (
+            <div>
+                <Header />
+                <Action />
+                <Options />
+                <AddOption />
+            </div>
+        );
     }
 }
 
-const removeAll = () => {
-    app.options = []
-    renderAppRoot();
+
+class Header extends React.Component {
+    render() {
+        return (
+            <div> 
+                <h1>Indecision</h1>                          
+                <h2>Put your life in the hands of computer</h2>                
+            </div>
+        )
+    }
 }
 
-const onMakeDecision = () => {
-    const random = Math.floor(Math.random() * app.options.length);
-    const option = app.options[random];
-    alert(option);
+class Action extends React.Component {
+    render() {
+        return (
+            <div>                           
+                <button>What should I do</button>                
+            </div>
+        )
+    }
 }
 
-const renderAppRoot = () => {
-    const template = (
-        <div>
-            <h1>{app.title.toUpperCase()}</h1>
-            {app.subtitle && <p>{app.subtitle}</p>}
-            {app.options.length > 0 ? <p>Here are your options</p> : <p>There are no options, please add one or more</p>}
-            <p>{app.options.length}</p>
-            <button disabled={app.options.length === 0} onClick={onMakeDecision}>What should I do</button>
-            <button onClick={removeAll}>Remove All</button><br/>
-            <ol>{renderList(app.options)}</ol>
-            <form onSubmit={onSubmitForm}>
-                <input type="text" name="option" />
-                <button>Add option</button>
-            </form>
-        </div>
-    );
-    
-    ReactDOM.render(template, appRoot);
+class Options extends React.Component {
+    render() {
+        return (
+            <div>
+                Options component
+                <Option></Option> 
+            </div>
+        )
+    }
 }
-// JSX template
-renderAppRoot();
+
+class Option extends React.Component {
+    render( ) {
+        return (
+            <div>
+                Option component here
+            </div>
+        )
+    }
+
+}
+
+class AddOption extends React.Component {
+    render() {
+        return (
+            <div>
+                <form>
+                    <input type="text" name="option" />
+                    <button>Add option</button>
+                </form>
+            </div>
+        )
+    }
+}
+const appRoot = document.getElementById('app')
+ReactDOM.render(<IndecisionApp />, appRoot)

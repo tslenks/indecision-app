@@ -47,3 +47,15 @@ renderTemplateThree();
                 ? <div>Here are your options <ol>{renderList(app.options)}</ol> </div> 
                 : <p>There is no options</p>}  
 */
+
+/**
+ * if(!change) {
+        e.target.innerHTML = 'Hide details';
+        paragraph.innerHTML = "These are some details that you can see"
+        change = true;
+    } else {
+        e.target.innerHTML = 'Show details';
+        paragraph.innerHTML = ""
+        change = false;
+    }
+ */
