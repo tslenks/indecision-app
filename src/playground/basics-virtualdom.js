@@ -1,10 +1,8 @@
-// in index.html
-/* <div id="example"></div>
- <div id="app-title"></div> --- */
-
+/*
+// 1st method
 const appTitle = document.getElementById('app-title')
 const example =  document.getElementById('example')
-
+const appRoot = document.getElementById('app')
 
 const user = {
     name:'Andry Marcel',
@@ -40,22 +38,50 @@ function renderTemplateThree() {
 
     ReactDOM.render(templateThree, appRoot);
 }
-// ReactDOM.render(template, appTitle);
+
 renderTemplateThree();
-/*
-{app.options && app.options.length > 0 
-                ? <div>Here are your options <ol>{renderList(app.options)}</ol> </div> 
-                : <p>There is no options</p>}  
 */
 
-/**
- * if(!change) {
-        e.target.innerHTML = 'Hide details';
-        paragraph.innerHTML = "These are some details that you can see"
-        change = true;
-    } else {
-        e.target.innerHTML = 'Show details';
-        paragraph.innerHTML = ""
-        change = false;
+class Counter extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.addOne = this.addOne.bind(this);
+        this.minusOne = this.minusOne.bind(this);
+        this.resetCount = this.resetCount.bind(this);
+        this.state = {
+            count: 0
+        };
     }
- */
+
+    addOne() {
+        // this.state.count = this.state.count + 1;
+        this.setState((prevState) => {
+            return {
+                count: prevState.count + 1
+            };
+        })
+        console.log(this.state);
+    }
+
+    minusOne() {
+        alert('minus');
+    }
+
+    resetCount() {
+        alert('reset');
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Count : {this.state.count} </h1>
+                <button onClick={this.addOne}>+1</button>
+                <button onClick={this.minusOne}>-1</button>
+                <button onClick={this.resetCount}>Reset</button>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(<Counter />, document.getElementById('app'))
