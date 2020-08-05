@@ -1,4 +1,6 @@
 const path = require('path');
+
+// basic congfigurations
 module.exports = {
     mode: 'development',
     entry: "./src/app.js",
@@ -6,4 +8,11 @@ module.exports = {
         path: path.join(__dirname,'public'),
         filename: 'bundle.js'
     },
+    module:{
+        rules: [{
+            loader: 'babel-loader',
+            test: /\.js$/,
+            exclude: /node_modules/
+        }]
+    }
 };
