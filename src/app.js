@@ -1,9 +1,8 @@
 /* import validator from 'validator';
 console.log(validator.isEmail('hh@gkd.com'));
 */
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import IndecisionApp from './components/IndecisionApp'
 
-// const template = React.createElement('p', {}, 'Testing 123');
-const template = <p> TEsting 123!</p>;
-ReactDOM.render(template, document.getElementById('app'));
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
